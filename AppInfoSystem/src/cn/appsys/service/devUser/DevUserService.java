@@ -1,4 +1,4 @@
-package cn.appsys.service.developer;
+package cn.appsys.service.devUser;
 
 import cn.appsys.pojo.DevUser;
 

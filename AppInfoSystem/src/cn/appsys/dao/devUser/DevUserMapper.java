@@ -1,4 +1,4 @@
-package cn.appsys.dao.devuser;
+package cn.appsys.dao.devUser;
 
 import cn.appsys.pojo.DevUser;
 import org.springframework.stereotype.Repository;

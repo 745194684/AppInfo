@@ -1,6 +1,6 @@
-package cn.appsys.service.developer;
+package cn.appsys.service.devUser;
 
-import cn.appsys.dao.devuser.DevUserMapper;
+import cn.appsys.dao.devUser.DevUserMapper;
 import cn.appsys.pojo.DevUser;
 import cn.appsys.tools.EmptyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
