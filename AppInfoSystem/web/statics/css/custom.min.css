@@ -840,7 +840,7 @@ footer {
 .footer_fixed footer {
     position: fixed;
     left: 0px;
-    bottom: 0px;
+    bottom: -8px;
     width: 100%
 }
 

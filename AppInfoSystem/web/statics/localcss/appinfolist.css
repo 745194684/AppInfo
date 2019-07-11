@@ -9,3 +9,21 @@
 	line-height: 40px;
 	vertical-align: middle;
 }
+
+.tooltip{
+	z-index:9999999999;
+}
+.dropdown-menu{
+	min-width:105px;
+}
+.caret {
+
+	margin-top: 6px;
+	height: 14px;
+}
+
+.footer_fixed footer {
+
+	bottom: -8px;
+	width: 100%
+}

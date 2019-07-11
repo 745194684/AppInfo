@@ -3,12 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.appsys.dao.appinfo.AppInfoMapper">
 
-    <select id="getAppListPage" resultType="AppInfo">
-        SELECT a.softwareName,a.APKName,a.softwareSize,a.flatformId,a.categoryLevel1,a.categoryLevel2,
-        a.categoryLevel3,
-        a.status,
-        a.downloads,
-        v.versionNo
+    <sql id="commonSql">
         FROM app_info a
         LEFT JOIN app_version v
         ON v.id = a.versionId
@@ -36,6 +31,61 @@
                 and a.devId=#{devId}
             </if>
         </trim>
+    </sql>
+
+    <select id="getAppListPage" resultType="AppInfo">
+        SELECT a.softwareName,a.APKName,a.softwareSize,a.flatformId,
+        a.categoryLevel1,
+        a.categoryLevel2,
+        a.categoryLevel3,
+        a.status,
+        a.downloads,
+        v.versionNo
+        <include refid="commonSql"/>
+        limit #{currentPage},#{pageSize}
     </select>
+
+    <select id="getCategoryNameById" resultType="string">
+        SELECT categoryName
+        FROM app_category
+        WHERE id = #{id}
+    </select>
+
+    <select id="getAppListPageCount" resultType="Integer">
+        select count(*)
+        <include refid="commonSql"/>
+    </select>
+
+    <select id="getAllTypeNameByTypeCode" resultType="DataDictionary">
+        SELECT id,typeCode,typeName,valueId,valueName,createdBy,creationDate,modifyBy,modifyDate
+        FROM data_dictionary
+        <if test="typeCode != null and typeCode != ''">
+            where typeCode = #{typeCode}
+        </if>
+    </select>
+
+    <select id="getAppCategoryListByParentId" resultType="AppCategory">
+        SELECT id,categoryCode,categoryName,parentId,createdBy,creationTime,modifyBy,modifyDate
+        FROM app_category
+        <if test="parentId != null">
+            where parentId = #{parentId}
+        </if>
+    </select>
+
+    <select id="getOneAppInfo" resultType="AppInfo">
+        select *
+        from app_info
+        where APKName = #{APKName}
+    </select>
+
+    <insert id="appInfoAddSave">
+        insert into app_info (softwareName,APKName,supportROM,interfaceLanguage,updateDate,softwareSize,
+                              devId,appInfo,status,onSaleDate,offSaleDate,categoryLevel1,categoryLevel2,
+                              categoryLevel3,downloads,flatformId,logoPicPath,logoLocPath,createdBy,creationDate)
+        values(#{softwareName},#{APKName},#{supportROM},#{interfaceLanguage},#{updateDate},
+               #{softwareSize},#{devId},#{appInfo},#{status},#{onSaleDate},#{offSaleDate},
+               #{categoryLevel1},#{categoryLevel2},#{categoryLevel3},#{downloads},
+               #{flatformId},#{logoPicPath},#{logoLocPath},#{createdBy},#{creationDate})
+    </insert>
 
 </mapper>
